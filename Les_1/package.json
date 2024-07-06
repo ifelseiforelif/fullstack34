@@ -1,7 +1,7 @@
 {
-  "name": "les_1",
+  "name": "fullstack34_user",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "User.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
