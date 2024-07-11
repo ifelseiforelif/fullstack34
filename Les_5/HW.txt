@@ -1,0 +1,14 @@
+Node JS. Зустріч 5
+Модуль 3.  Buffer, stream
+
+1. Ознайомтесь з props та methods
+setDefaultEncoding
+writableLength
+writableCorked
+writableEnded
+destroyed
+Використати їх у коді для роботи з WritableStream
+2. Написати функцію, яка приймає шлях до pdf файлу (перевірити, щоб дійсно було розширення pdf)
+Створити Transform Stream, а саме: спочатку зчитати файл потім зробити його стиснення та записати через Writable Stream
+3. Напишіть функцію яка приймає рядки та буфер і записує їх в потік виводу в консоль за допомогою методу write.
+
