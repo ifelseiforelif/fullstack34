@@ -1,8 +1,8 @@
-import express from "express";
+import { Router } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const routers = express.Router();
+const routers = Router();
 
 const products = ["bread", "milk", "banana"];
 
@@ -15,7 +15,11 @@ routers.get("/about", (req, res) => {
   //   res.sendFile(path.join(__dirname, "index.html"), (err) => {
   //     console.log(err);
   //   });
-  res.render("about", { title: "About" });
+  res.render("about", {
+    title: "About",
+    authors: ["Alex", "Bogdan", "Denis"],
+    is_show: true,
+  });
 });
 
 routers.get("/info", (req, res) => {
