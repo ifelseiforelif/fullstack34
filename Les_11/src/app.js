@@ -6,6 +6,7 @@ import exphbs from "express-handlebars";
 import user_routers from "./routes/user-routers.js";
 import product_routers from "./routes/product-routers.js";
 import logger from "./middlewars/logger-middleware.js";
+import menu_items from "./middlewars/menu-middleware.js";
 const PORT = process.env.PORT | 3000;
 const hbs = exphbs.create({
   defaultLayout: "main",
@@ -19,6 +20,7 @@ app.set("views", path.join("src", "views"));
 app.use(express.static("public")); //middleware
 app.use(express.json());
 app.use(logger);
+app.use(menu_items);
 app.use("/user", user_routers);
 app.use("/product", product_routers);
 app.use(routers);

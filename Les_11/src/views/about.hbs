@@ -1,9 +1,21 @@
 <h1>About Page</h1>
 {{#if is_show}}
   <div>{{title}} us</div>
-  {{#each authors}}
-    <p>{{this}}</p>
-  {{/each}}
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each authors}}
+        <tr>
+          <td>{{this}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 {{else}}
   <div>Not found</div>
 {{/if}}
