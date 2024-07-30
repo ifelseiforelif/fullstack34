@@ -1,7 +1,8 @@
 import "dotenv/config";
+import fs from "fs";
 import express from "express";
+import https from "https";
 import routers from "./routes/site-routers.js";
-import path from "path";
 import exphbs from "express-handlebars";
 import user_routers from "./routes/user-routers.js";
 import product_routers from "./routes/product-routers.js";
@@ -12,7 +13,15 @@ const hbs = exphbs.create({
   defaultLayout: "main",
   extname: "hbs",
 });
-
+import path from "path";
+import { fileURLToPath } from "url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const privateKey = fs.readFileSync(
+  path.join(__dirname, "..", "cert", "server.key")
+);
+const certificate = fs.readFileSync(
+  path.join(__dirname, "..", "cert", "server.crt")
+);
 const app = express();
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
@@ -29,7 +38,15 @@ app.all("*", (req, res) => {
   res.status(404).render("page404", { layout: false, title: "Not Found" });
 });
 
-app.listen(PORT, () => {
+const httpsServer = https.createServer(
+  {
+    key: privateKey,
+    cert: certificate,
+  },
+  app
+);
+
+httpsServer.listen(PORT, () => {
   console.log(`Server is running ... http://localhost:${PORT}`);
 });
 
