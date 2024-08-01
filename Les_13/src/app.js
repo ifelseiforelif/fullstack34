@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import user_router from "./routes/user-routes.js";
 import site_router from "./routes/site-routes.js";
 import path from "path";
+import auth from "./middlewars/user-middleware.js";
 const PORT = process.env.PORT || 8000;
 const hbs = exphbs.create({
   defaultLayout: "main",
@@ -14,6 +15,12 @@ const hbs = exphbs.create({
 });
 const app = express();
 app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+  })
+);
+app.use(auth);
 app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
