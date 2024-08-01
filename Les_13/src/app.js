@@ -5,6 +5,7 @@ import exphbs from "express-handlebars";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import user_router from "./routes/user-routes.js";
+import site_router from "./routes/site-routes.js";
 import path from "path";
 const PORT = process.env.PORT || 8000;
 const hbs = exphbs.create({
@@ -19,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", path.join("src", "views"));
+
 app.use("/user", user_router);
+app.use(site_router);
 
 app.listen(PORT, () => {
   console.log(`Server is running ... http://localhost:${PORT}`);
