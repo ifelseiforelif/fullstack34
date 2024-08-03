@@ -1,0 +1,8 @@
+CREATE DATABASE node
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255) NOT NULL
+)

@@ -1,5 +1,7 @@
 import { Router } from "express";
+import jwt from "jsonwebtoken";
 import user from "../services/user-service.js";
+import secure from "../services/user-secure.js";
 const user_router = Router();
 user_router.get("/signup", (req, res) => {
   res.render("form_register", { title: "Registration Form" });
@@ -28,4 +30,27 @@ user_router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+//JWT
+/*
+{
+  "login":"your login",
+  "email":"email",
+  "password":"123",
+  "confirm_password":"123"
+}
+*/
+
+user_router.post("/", (req, res) => {
+  const { login, email, password, confirm_password } = req.body;
+  if (login.length > 3 && password === confirm_password) {
+    const token = secure.generateToken(req.body);
+    res.json({ token: token });
+  } else {
+    res.send("Error");
+  }
+});
+
+user_router.get("/", secure.authenticateToken, (req, res) => {
+  res.send(req.user);
+});
 export default user_router;

@@ -1,0 +1,10 @@
+В репозіторії ветка Les_15_jwt додати створення refresh токена. Зі сторони фронтенда додати можливість провести авторізацію
+користувача через JWT токен.
+
+
+const response = await fetch("https://localhost:3050/user", {
+  headers: {
+    "authorization": "Bearer "+localStorage("token"),
+  },
+  // .,.
+});
