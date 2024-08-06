@@ -1,4 +1,5 @@
 import { Router } from "express";
+import User from "../postgres/models/User.js";
 import jwt from "jsonwebtoken";
 import user from "../services/user-service.js";
 import secure from "../services/user-secure.js";
@@ -11,8 +12,10 @@ user_router.get("/signin", (req, res) => {
   res.render("form_auth", { title: "Auth Form" });
 });
 
-user_router.post("/signup", (req, res) => {
+user_router.post("/signup", async (req, res) => {
   const { login, email, password } = req.body;
+  console.log(req.body);
+  await User.add_user(req.body);
   req.session.user = login;
   req.session.email = email;
   user.add(login, email, password);
