@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 class Secure {
   generateToken(data) {
-    return jwt.sign(data, process.env.ACCESS_KEY_JWT);
+    return jwt.sign(data, process.env.ACCESS_KEY_JWT, { expiresIn: "15m" });
   }
   authenticateToken(req, res, next) {
     const auth = req.headers["authorization"];

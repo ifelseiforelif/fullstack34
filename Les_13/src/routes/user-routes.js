@@ -17,7 +17,7 @@ user_router.post("/signup", (req, res) => {
   req.session.email = email;
   user.add(login, email, password);
   // res.cookie("user", login);
-  // //res.cookie("email", email, { maxAge: 1000000 });
+  // //res.cookie("email", email, { maxAge: 1000000, httpOnly:true });
   // res.cookie("email", email);
   console.log(login, email, password);
   res.redirect("/");
