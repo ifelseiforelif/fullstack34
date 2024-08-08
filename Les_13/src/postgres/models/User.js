@@ -8,6 +8,18 @@ class User {
     );
     return user.rows[0].id;
   }
+
+  async get_user_by_id(id) {
+    const user = await dbconfig.query("SELECT * FROM users WHERE id=$1", [id]);
+    return user.rows[0];
+  }
+
+  async get_user_by_login(login) {
+    const user = await dbconfig.query("SELECT * FROM users WHERE login=$1", [
+      login,
+    ]);
+    return user.rows[0];
+  }
 }
 
 export default new User();

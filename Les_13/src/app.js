@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import exphbs from "express-handlebars";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import userSecure from "./services/user-secure.js";
 import user_router from "./routes/user-routes.js";
 import site_router from "./routes/site-routes.js";
 import path from "path";
@@ -29,16 +30,18 @@ dbconfig
         resave: true,
       })
     );
-    app.use(auth);
+    // app.use(auth);
     app.use(express.static("public"));
     app.use(express.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.engine("hbs", hbs.engine);
     app.set("view engine", "hbs");
     app.set("views", path.join("src", "views"));
+    // app.use(userSecure.authenticateAccessToken);
+    app.use(userSecure.check_token);
+    app.use(site_router);
 
     app.use("/user", user_router);
-    app.use(site_router);
 
     app.listen(PORT, () => {
       console.log(`Server is running ... http://localhost:${PORT}`);
