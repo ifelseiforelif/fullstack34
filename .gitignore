@@ -1,2 +1,3 @@
 */node_modules
+*/.env
 npmTest/node_modules

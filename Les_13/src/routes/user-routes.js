@@ -1,6 +1,6 @@
 import { Router } from "express";
 import User from "../postgres/models/User.js";
-import jwt from "jsonwebtoken";
+import { check, validationResult } from "express-validator";
 import user from "../services/user-service.js";
 import secure from "../services/user-secure.js";
 const user_router = Router();
@@ -12,19 +12,31 @@ user_router.get("/signin", (req, res) => {
   res.render("form_auth", { title: "Auth Form" });
 });
 
-user_router.post("/signup", async (req, res) => {
-  const { login, email, password } = req.body;
-  console.log(req.body);
-  await User.add_user(req.body);
-  req.session.user = login;
-  req.session.email = email;
-  user.add(login, email, password);
-  // res.cookie("user", login);
-  // //res.cookie("email", email, { maxAge: 1000000, httpOnly:true });
-  // res.cookie("email", email);
-  console.log(login, email, password);
-  res.redirect("/");
-});
+user_router.post(
+  "/signup",
+  [
+    check("email").isEmail().withMessage("Введіть правильний email"),
+    check("login").isLength({ min: 6, max: 20 }).withMessage("Невірний логін"),
+  ],
+
+  async (req, res) => {
+    const { login, email, password, confirm_password } = req.body;
+    const errors = validationResult(req);
+    if (errors.isEmpty() && password === confirm_password) {
+      await User.add_user(req.body);
+      req.session.user = login;
+      req.session.email = email;
+      user.add(login, email, password);
+      // res.cookie("user", login);
+      // //res.cookie("email", email, { maxAge: 1000000, httpOnly:true });
+      // res.cookie("email", email);
+      console.log(login, email, password);
+      res.redirect("/");
+      return;
+    }
+    res.json({ errors });
+  }
+);
 
 user_router.get("/logout", (req, res) => {
   // res.clearCookie("user");
