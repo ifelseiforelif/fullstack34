@@ -1,0 +1,9 @@
+/** Для проекта https://github.com/natapervomaisk88/fullstack34
+ветка rest_api
+DB: db.sql файл у проекті
+ * Створити 2 роуты.
+ * 1) http://localhost:3000/cars GET
+ * У відповідь відправляєте всі машини, які є у БД
+ * 2) http://localhost:3000/cars/id GET
+ * У відповідь відправляєте одну машину, id, якої отримали
+ */
