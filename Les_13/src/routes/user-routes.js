@@ -34,7 +34,7 @@ user_router.post(
       res.redirect("/");
       return;
     }
-    res.json({ errors });
+    res.json({ errors: errors.array() });
   }
 );
 
