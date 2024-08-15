@@ -1,0 +1,2 @@
+https://github.com/natapervomaisk88/fullstack34/tree/rest_api
+Зробити DELETE за ідентифікатором машини, перевірити на фронті

@@ -8,7 +8,7 @@ user_router.get("/signup", (req, res) => {
   res.render("form_register", { title: "Registration Form" });
 });
 
-user_router.get("/signin", (req, res) => {
+user_router.get("/signin", auth, (req, res) => {
   res.render("form_auth", { title: "Auth Form" });
 });
 

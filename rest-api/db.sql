@@ -26,3 +26,6 @@ INSERT INTO cars(model, year,number, color , type, isNew ,vEngine ) VALUES ('maz
 ('Skoda Octavia', 2019, 'R456S789', 3, 1, true, 1.4),
 ('Nissan Qashqai', 2020, 'T890U123', 2, 2, true, 2.0),
 ('Hyundai Tucson', 2018, 'V234W567', 3, 3, true, 1.6);
+
+
+SELECT "id", "model", "year", "number", "color", "type", "isnew", "vengine" FROM "cars" AS "cars"

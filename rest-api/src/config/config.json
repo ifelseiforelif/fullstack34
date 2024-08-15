@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "simple",
+    "database": "autocrm",
+    "host": "127.0.0.1",
+    "dialect": "posgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "simple",
+    "database": "autocrm_test",
+    "host": "127.0.0.1",
+    "dialect": "posgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "simple",
+    "database": "autocrm_prod",
+    "host": "127.0.0.1",
+    "dialect": "posgres"
+  }
+}
