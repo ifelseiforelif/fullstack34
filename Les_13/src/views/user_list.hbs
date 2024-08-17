@@ -1,0 +1,26 @@
+{{#if is_data}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Login</th>
+        <th scope="col">Email</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        <tr>
+          <th scope="row">{{id}}</th>
+          <td>{{login}}</td>
+          <td>{{email}}</td>
+
+        </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+{{else}}
+  <p>User list is empty</p>
+
+{{/if}}

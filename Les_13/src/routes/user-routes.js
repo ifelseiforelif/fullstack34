@@ -1,15 +1,27 @@
 import { Router } from "express";
 import User from "../postgres/models/User.js";
 import { check, validationResult } from "express-validator";
-import user from "../services/user-service.js";
+import { user_auth } from "../middlewars/user-middleware.js";
 import secure from "../services/user-secure.js";
 const user_router = Router();
-user_router.get("/signup", (req, res) => {
+user_router.get("/signup", user_auth, (req, res) => {
   res.render("form_register", { title: "Registration Form" });
 });
 
-user_router.get("/signin", auth, (req, res) => {
+user_router.get("/signin", user_auth, (req, res) => {
   res.render("form_auth", { title: "Auth Form" });
+});
+
+user_router.post("/signin", async (req, res) => {
+  const user = await User.get_user(req.body);
+  if (user.rowCount == 1) {
+    req.session.user = user.rows[0].login;
+    req.session.email = user.rows[0].email;
+    res.locals.user = req.session.user;
+    res.render("home", { title: "Home" });
+  } else {
+    res.redirect("/");
+  }
 });
 
 user_router.post(
@@ -26,11 +38,9 @@ user_router.post(
       await User.add_user(req.body);
       req.session.user = login;
       req.session.email = email;
-      user.add(login, email, password);
       // res.cookie("user", login);
       // //res.cookie("email", email, { maxAge: 1000000, httpOnly:true });
       // res.cookie("email", email);
-      console.log(login, email, password);
       res.redirect("/");
       return;
     }
@@ -45,6 +55,18 @@ user_router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+user_router.get("/", async (req, res) => {
+  const users = await User.get_all_users();
+  if (users.rowCount > 0) {
+    res.render("user_list", {
+      title: "user list",
+      users: users.rows,
+      is_data: true,
+    });
+  } else {
+    res.render("user_list", { title: "user list", is_data: false });
+  }
+});
 //JWT
 /*
 {

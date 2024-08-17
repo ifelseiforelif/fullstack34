@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import user_router from "./routes/user-routes.js";
 import site_router from "./routes/site-routes.js";
 import path from "path";
-import auth from "./middlewars/user-middleware.js";
+import { auth } from "./middlewars/user-middleware.js";
 import { dbconfig } from "./postgres/dbconfig.js";
 
 const PORT = process.env.PORT || 8000;
@@ -29,16 +29,16 @@ dbconfig
         resave: true,
       })
     );
-    app.use(auth);
+
     app.use(express.static("public"));
     app.use(express.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.engine("hbs", hbs.engine);
     app.set("view engine", "hbs");
     app.set("views", path.join("src", "views"));
-
-    app.use("/user", user_router);
     app.use(site_router);
+    app.use(auth);
+    app.use("/user", user_router);
 
     app.listen(PORT, () => {
       console.log(`Server is running ... http://localhost:${PORT}`);
