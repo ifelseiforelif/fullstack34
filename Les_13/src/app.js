@@ -37,7 +37,7 @@ dbconfig
     app.set("view engine", "hbs");
     app.set("views", path.join("src", "views"));
     app.use(site_router);
-    app.use(auth);
+    //app.use(auth);
     app.use("/user", user_router);
 
     app.listen(PORT, () => {

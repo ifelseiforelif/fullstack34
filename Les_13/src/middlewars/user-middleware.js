@@ -10,6 +10,7 @@ const auth = (req, res, next) => {
 
 const user_auth = (req, res, next) => {
   if (req.session.user && req.session.email) {
+    res.locals.user = req.session.user;
     return res.redirect("/");
   }
   next();
